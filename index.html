@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PerformaFC | Youth Soccer Performance Platform</title>
-    <meta name="description" content="A primeira plataforma para atletas de futebol base (12-18) com Motor de Decisão AI. Ciência da prontidão diária, gestão de carga ACWR e relatórios para Scouts." />
+    <meta name="description" content="The first performance platform for youth soccer athletes (7-17) with a Real AI Decision Engine." />
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -30,13 +31,14 @@
             }
         }
     </script>
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #0B0E14; color: #F3F4F6; }
         .glow-text { text-shadow: 0 0 20px rgba(16, 185, 129, 0.4); }
         .gradient-text { background: linear-gradient(135deg, #34d399 0%, #059669 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero-glow { position: absolute; top: -10%; left: 50%; transform: translateX(-50%); width: 800px; height: 500px; background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, rgba(11,14,20,0) 70%); pointer-events: none; z-index: -1; }
-        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.5); }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.5); transition: all 0.3s ease; }
         .nav-blur { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05); }
     </style>
 </head>
@@ -47,6 +49,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center gap-3">
+                    <!-- Logo -->
                     <svg width="40" height="40" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <defs><linearGradient id="gnav" x1="0" y1="0" x2="44" y2="44"><stop offset="0%" stop-color="#34d399"/><stop offset="100%" stop-color="#059669"/></linearGradient></defs>
                         <rect width="44" height="44" rx="12" fill="url(#gnav)"/>
@@ -59,14 +62,23 @@
                         <span class="text-xs font-bold text-brand-400 tracking-widest">FC</span>
                     </div>
                 </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#plataforma" class="text-gray-300 hover:text-white font-medium transition">A Plataforma</a>
-                    <a href="#motor" class="text-gray-300 hover:text-white font-medium transition">Motor de IA</a>
-                    <a href="#planos" class="text-gray-300 hover:text-white font-medium transition">Preços</a>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#plataforma" class="text-gray-300 hover:text-white font-medium transition" data-i18n="nav_platform">The Platform</a>
+                    <a href="#motor" class="text-gray-300 hover:text-white font-medium transition" data-i18n="nav_engine">AI Engine</a>
+                    <a href="#planos" class="text-gray-300 hover:text-white font-medium transition" data-i18n="nav_pricing">Pricing</a>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <a href="https://app.beone.app/login" class="text-gray-300 hover:text-white font-semibold transition text-sm">Entrar</a>
-                    <a href="https://app.beone.app/register" class="bg-brand-500 hover:bg-brand-400 text-white px-5 py-2.5 rounded-full font-bold text-sm transition shadow-lg shadow-brand-500/20">Começar Grátis</a>
+                
+                <div class="flex items-center space-x-3 sm:space-x-4">
+                    <!-- Language Switcher -->
+                    <select id="lang_select" class="bg-dark-800 border border-gray-700 text-gray-300 text-xs sm:text-sm rounded focus:ring-brand-500 focus:border-brand-500 block px-2 py-1 outline-none appearance-none cursor-pointer">
+                        <option value="en">🇺🇸 EN</option>
+                        <option value="pt">🇧🇷 PT</option>
+                        <option value="es">🇪🇸 ES</option>
+                    </select>
+
+                    <a href="https://app.beone.app/login" class="text-gray-300 hover:text-white font-semibold transition text-sm hidden sm:block" data-i18n="nav_login">Login</a>
+                    <a href="https://app.beone.app/register" class="bg-brand-500 hover:bg-brand-400 text-white px-4 py-2 sm:px-5 sm:py-2.5 rounded-full font-bold text-xs sm:text-sm transition shadow-lg shadow-brand-500/20" data-i18n="nav_start">Start Free</a>
                 </div>
             </div>
         </div>
@@ -78,36 +90,36 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-bold tracking-wide uppercase mb-8">
                 <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse"></span>
-                The Youth Soccer Performance Engine
+                <span data-i18n="hero_badge">The Youth Soccer Performance Engine</span>
             </div>
             
             <h1 class="text-5xl md:text-7xl font-black text-white tracking-tight mb-6 leading-tight">
-                Chegar preparado ao Tryout<br />
-                <span class="gradient-text glow-text">é uma Ciência.</span>
+                <span data-i18n="hero_title_1">Arriving ready to the Tryout</span><br />
+                <span class="gradient-text glow-text" data-i18n="hero_title_2">is a Science.</span>
             </h1>
             
-            <p class="mt-4 text-xl text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed font-light">
-                O único sistema de performance para atletas de base (12-18) com um <strong>Motor de Decisão em IA</strong>. Avaliamos a tua prontidão diária, prevenimos lesões e geramos treinos com intenção tática para a tua posição.
+            <p class="mt-4 text-xl text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed font-light" data-i18n="hero_subtitle">
+                The only performance system for youth soccer athletes (7-17) with an <strong>AI Decision Engine</strong>. We evaluate your daily readiness, manage physical load, and generate tactical sessions tailored to your position.
             </p>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <a href="https://app.beone.app/register" class="w-full sm:w-auto px-8 py-4 bg-brand-500 hover:bg-brand-400 text-white rounded-full font-black text-lg transition-all transform hover:scale-105 shadow-[0_0_40px_-10px_rgba(16,185,129,0.5)] flex items-center justify-center gap-3">
-                    Inicia o 1º Microciclo Grátis
+                    <span data-i18n="hero_cta_primary">Start 1st Microcycle Free</span>
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
-                <a href="#motor" class="w-full sm:w-auto px-8 py-4 bg-dark-800 hover:bg-dark-700 text-white rounded-full font-bold text-lg border border-gray-800 transition-colors">
-                    Como a IA funciona
+                <a href="#motor" class="w-full sm:w-auto px-8 py-4 bg-dark-800 hover:bg-dark-700 text-white rounded-full font-bold text-lg border border-gray-800 transition-colors" data-i18n="hero_cta_secondary">
+                    How the AI works
                 </a>
             </div>
-            <p class="mt-4 text-xs text-brand-500 font-medium">Sem cartão de crédito · Trial 14 dias · 2.262+ Drills disponíveis</p>
+            <p class="mt-4 text-xs text-brand-500 font-medium" data-i18n="hero_disclaimer">No credit card required · 14-day Trial · 2,262+ Drills available</p>
         </div>
     </section>
 
     <!-- Logo Cloud / Trust -->
     <section class="border-y border-white/5 bg-dark-800/50 py-10">
         <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 opacity-60">
-            <span class="text-sm font-bold uppercase tracking-widest text-gray-500">Desenvolvido com a ciência de</span>
-            <div class="flex gap-8 md:gap-16 font-black text-xl text-gray-400 tracking-tight">
+            <span class="text-sm font-bold uppercase tracking-widest text-gray-500" data-i18n="trust_title">Powered by the science of</span>
+            <div class="flex gap-8 md:gap-16 font-black text-xl text-gray-400 tracking-tight text-center">
                 <span>ACWR Metrics</span>
                 <span>OpenAI Coach</span>
                 <span>RLS Security</span>
@@ -119,32 +131,32 @@
     <section id="plataforma" class="py-24 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-brand-500 font-bold tracking-widest uppercase text-sm mb-3">O Paradigma Atual</h2>
-                <h3 class="text-3xl md:text-5xl font-black text-white mb-6">Treinar às cegas causa lesões.</h3>
-                <p class="text-gray-400 text-lg">A maioria das apps apenas mostra vídeos. Nós cruzamos o teu check-in diário com a tua carga semanal para prescrever a intensidade exata de treino que previne o overtraining.</p>
+                <h2 class="text-brand-500 font-bold tracking-widest uppercase text-sm mb-3" data-i18n="plat_badge">The Current Paradigm</h2>
+                <h3 class="text-3xl md:text-5xl font-black text-white mb-6" data-i18n="plat_title">Training blind causes injuries.</h3>
+                <p class="text-gray-400 text-lg" data-i18n="plat_subtitle">Most apps just show videos. We cross-reference your daily 8-point check-in with your weekly load to prescribe the exact intensity that prevents overtraining.</p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-dark-800 border border-gray-800 rounded-3xl p-8 card-hover transition duration-300">
+                <div class="bg-dark-800 border border-gray-800 rounded-3xl p-8 card-hover">
                     <div class="w-14 h-14 bg-brand-500/10 rounded-2xl flex items-center justify-center mb-6">
                         <svg class="w-7 h-7 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
-                    <h4 class="text-xl font-bold text-white mb-3">Check-in de Prontidão (8 Pontos)</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed">Avalia sono, fadiga, stress hídrico e dor muscular em 30 segundos. O sistema recalcula automaticamente a tua zona de carga (Day Color) antes do treino.</p>
+                    <h4 class="text-xl font-bold text-white mb-3" data-i18n="feat1_title">Readiness Check-in</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed" data-i18n="feat1_desc">Evaluate sleep, fatigue, hydration, and muscle soreness in 30 seconds. The system auto-calculates your effort zone (Day Color) before training.</p>
                 </div>
-                <div class="bg-dark-800 border border-gray-800 rounded-3xl p-8 card-hover transition duration-300">
+                <div class="bg-dark-800 border border-gray-800 rounded-3xl p-8 card-hover">
                     <div class="w-14 h-14 bg-brand-500/10 rounded-2xl flex items-center justify-center mb-6">
                         <svg class="w-7 h-7 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     </div>
-                    <h4 class="text-xl font-bold text-white mb-3">Motor Adaptativo U12-U18</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed">Geramos microciclos semanais (Verde, Amarelo, Vermelho) alinhados à tua faixa etária, posição e aos teus dias de jogos pelo clube.</p>
+                    <h4 class="text-xl font-bold text-white mb-3" data-i18n="feat2_title">Adaptive Engine (7-17 Yrs)</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed" data-i18n="feat2_desc">We generate weekly microcycles (Green, Yellow, Red) tailored to your age, tactical position, and club match days.</p>
                 </div>
-                <div class="bg-dark-800 border border-gray-800 rounded-3xl p-8 card-hover transition duration-300">
+                <div class="bg-dark-800 border border-gray-800 rounded-3xl p-8 card-hover">
                     <div class="w-14 h-14 bg-brand-500/10 rounded-2xl flex items-center justify-center mb-6">
                         <svg class="w-7 h-7 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     </div>
-                    <h4 class="text-xl font-bold text-white mb-3">Painel para Pais e Scouts</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed">Os responsáveis acompanham a curva de evolução (Consistência & ACWR) sem invadir a IA. Permite exportação gerada em PDF profundo para testes (Tryouts).</p>
+                    <h4 class="text-xl font-bold text-white mb-3" data-i18n="feat3_title">Parent & Scout Dashboard</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed" data-i18n="feat3_desc">Guardians track the evolution curve (Consistency & ACWR). Allows deep PDF dossier exports to prove your readiness at tryouts.</p>
                 </div>
             </div>
         </div>
@@ -154,34 +166,35 @@
     <section id="motor" class="py-24 bg-dark-800 relative border-y border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-16">
             <div class="lg:w-1/2">
-                <h2 class="text-brand-500 font-bold tracking-widest uppercase text-sm mb-3">Inteligência Restrita</h2>
-                <h3 class="text-3xl md:text-5xl font-black text-white mb-6">Coach IA focado em Futebol 100% Real.</h3>
-                <p class="text-gray-400 text-lg mb-6">Integramos um LLM blindado e desenhado apenas para *Soccer Development*. Podes fazer até 10 perguntas táticas ou técnicas por sessão ao nosso AI Assistant.</p>
+                <h2 class="text-brand-500 font-bold tracking-widest uppercase text-sm mb-3" data-i18n="ai_badge">Safeguarded Intelligence</h2>
+                <h3 class="text-3xl md:text-5xl font-black text-white mb-6" data-i18n="ai_title">100% Real Soccer Coach AI.</h3>
+                <p class="text-gray-400 text-lg mb-6" data-i18n="ai_subtitle">We integrated a restricted AI model designed entirely for Youth Development. Ask up to 10 tactical or technical questions per session directly to your AI Coach.</p>
                 
-                <ul class="space-y-4">
+                <ul class="space-y-4 text-sm mt-8">
                     <li class="flex items-start gap-4">
                         <div class="mt-1 bg-brand-500/20 p-1.5 rounded-full"><svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></div>
                         <div>
-                            <span class="text-white font-bold block mb-1">Intenção Tática Clara</span>
-                            <span class="text-sm text-gray-400">Antes de começares o Drill, a IA explica o teu "Porquê" estrutural no campo e adapta o conselho à tua posição.</span>
+                            <span class="text-white font-bold block mb-1" data-i18n="ai_bullet1_title">Clear Tactical Intent</span>
+                            <span class="text-gray-400" data-i18n="ai_bullet1_desc">Before starting the Drill, the AI explains the structural "Why" on the pitch based on your exact player role.</span>
                         </div>
                     </li>
                     <li class="flex items-start gap-4">
                         <div class="mt-1 bg-brand-500/20 p-1.5 rounded-full"><svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></div>
                         <div>
-                            <span class="text-white font-bold block mb-1">Prevenção por Regras Duras</span>
-                            <span class="text-sm text-gray-400">Dor acima de 8 ou três treinos amarelos seguidos forçam o sistema de decisão a colocar o treino em Modo Vermelho (Recuperação).</span>
+                            <span class="text-white font-bold block mb-1" data-i18n="ai_bullet2_title">Hard-Rule Injury Prevention</span>
+                            <span class="text-gray-400" data-i18n="ai_bullet2_desc">A readiness score >8 in pain automatically forces the system to switch your session to Recovery Mode (Red Zone).</span>
                         </div>
                     </li>
                     <li class="flex items-start gap-4">
                         <div class="mt-1 bg-brand-500/20 p-1.5 rounded-full"><svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></div>
                         <div>
-                            <span class="text-white font-bold block mb-1">Gamificação XP & Badges</span>
-                            <span class="text-sm text-gray-400">Acumulas *Streaks* por check-outs consistentes e recebes Badges especiais como "Tactical Genius" ou "Iron Man".</span>
+                            <span class="text-white font-bold block mb-1" data-i18n="ai_bullet3_title">XP & Gamification Tracking</span>
+                            <span class="text-gray-400" data-i18n="ai_bullet3_desc">Build Consistency Streaks by completing sessions and unlock badges like "Tactical Genius" and "Iron Man".</span>
                         </div>
                     </li>
                 </ul>
             </div>
+            
             <div class="lg:w-1/2 w-full">
                 <!-- Mock UI -->
                 <div class="bg-dark-900 border border-gray-700 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
@@ -197,22 +210,22 @@
                     
                     <div class="bg-dark-800/80 rounded-2xl p-4 border border-gray-800 mb-4">
                         <div class="flex justify-between items-start mb-2">
-                            <span class="text-brand-400 font-bold text-sm">Prontidão Detetada: ZONA AMARELA</span>
+                            <span class="text-brand-400 font-bold text-sm" data-i18n="mock_status">Status: YELLOW ZONE</span>
                             <span class="text-xs bg-yellow-500/20 text-yellow-500 px-2 py-1 rounded">RPE 7.5</span>
                         </div>
-                        <p class="text-sm text-gray-300">Notámos um declínio na tua qualidade de sono. Como tens jogo pelo teu clube no Sábado (D-2), o Motor ajustou a sessão de "Potência Pura" para um Bloco de Recuperação Ativa.</p>
+                        <p class="text-sm text-gray-300" data-i18n="mock_desc">We noticed a decline in your sleep quality. Since you have a Club Match on Saturday (D-2), the Engine adjusted tonight's session to "Active Recovery".</p>
                     </div>
 
                     <div class="space-y-3">
                         <div class="flex justify-end">
-                            <div class="bg-brand-600 text-white rounded-2xl rounded-tr-sm px-4 py-2.5 text-sm max-w-[85%]">
-                                Coach, sinto as panturrilhas pesadas, devo forçar os Sprints C1?
+                            <div class="bg-brand-600 text-white rounded-2xl rounded-tr-sm px-4 py-3 text-sm max-w-[85%]" data-i18n="mock_user_msg">
+                                Coach, my calves feel heavy, should I push through the C1 sprints?
                             </div>
                         </div>
                         <div class="flex justify-start">
-                            <div class="bg-gray-800 border border-gray-700 text-gray-200 rounded-2xl rounded-tl-sm px-4 py-2.5 text-sm max-w-[85%]">
+                            <div class="bg-gray-800 border border-gray-700 text-gray-200 rounded-2xl rounded-tl-sm px-4 py-3 text-sm max-w-[85%]">
                                 <span class="font-bold text-brand-400 block mb-1">Coach IA</span>
-                                Não aconselho. Com carga acumulada, sprints de travagem e aceleração brutal (C1) aumentam drasticamente o risco de rutura miofascial. Foca apenas nos blocos D1 (Técnica Base) e R2 (Mobilidade).
+                                <span data-i18n="mock_ai_msg">I do not recommend it. With your accumulated load, high acceleration sprints (C1) drastically increase the risk of muscle strain. Focus only on D1 (Base Technique) and R2 (Mobility).</span>
                             </div>
                         </div>
                     </div>
@@ -225,58 +238,42 @@
     <section id="planos" class="py-24 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-brand-500 font-bold tracking-widest uppercase text-sm mb-3">Modelos de Subscrição</h2>
-                <h3 class="text-4xl font-black text-white mb-4">Focado no Atleta. <br/>Perfeito para Pais & Clubes.</h3>
-                <p class="text-gray-400">Cancelas apenas com um clique no interface. Tudo integrado via Stripe Seguro.</p>
+                <h2 class="text-brand-500 font-bold tracking-widest uppercase text-sm mb-3" data-i18n="price_badge">Subscription Models</h2>
+                <h3 class="text-4xl font-black text-white mb-4" data-i18n="price_title">Focused on the Athlete.</h3>
+                <p class="text-gray-400" data-i18n="price_subtitle">Cancel with one click inside the app. Secured via Stripe.</p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 
                 <!-- Trial -->
                 <div class="bg-dark-800 border border-gray-800 rounded-3xl p-8 flex flex-col transition duration-300 card-hover items-center pt-10">
-                    <h4 class="text-xl font-bold text-white mb-2">Kick-Off Trial</h4>
-                    <p class="text-gray-500 font-medium mb-6">14 Dias Test-Drive</p>
-                    <div class="text-5xl font-black text-white mb-6">0€</div>
+                    <h4 class="text-xl font-bold text-white mb-2" data-i18n="plan1_title">Kick-Off Trial</h4>
+                    <p class="text-gray-500 font-medium mb-6" data-i18n="plan1_desc">14 Days Test-Drive</p>
+                    <div class="text-5xl font-black text-white mb-6">$0</div>
                     <ul class="space-y-3 mb-8 w-full">
-                        <li class="flex gap-3 text-sm text-gray-300"><svg class="w-5 h-5 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Check-in diário e RPE</li>
-                        <li class="flex gap-3 text-sm text-gray-300"><svg class="w-5 h-5 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Acesso aos Microciclos IA</li>
-                        <li class="flex gap-3 text-sm text-gray-300"><svg class="w-5 h-5 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>3 perguntas/dia ao Coach IA</li>
-                        <li class="flex gap-3 text-sm text-gray-300"><svg class="w-5 h-5 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Acompanhamento Básico Pais</li>
+                        <li class="flex gap-3 text-sm text-gray-300"><svg class="w-5 h-5 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span data-i18n="plan1_li1">Daily Readiness & RPE</span></li>
+                        <li class="flex gap-3 text-sm text-gray-300"><svg class="w-5 h-5 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span data-i18n="plan1_li2">AI Microcycles Access</span></li>
+                        <li class="flex gap-3 text-sm text-gray-300"><svg class="w-5 h-5 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span data-i18n="plan1_li3">3 Questions/day to Coach IA</span></li>
+                        <li class="flex gap-3 text-sm text-gray-300"><svg class="w-5 h-5 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span data-i18n="plan1_li4">Basic Parent Tracking</span></li>
                     </ul>
-                    <a href="https://app.beone.app/register" class="mt-auto w-full py-3.5 rounded-full border-2 border-gray-700 hover:border-brand-500 text-white font-bold text-center transition">O meu Test-Drive</a>
+                    <a href="https://app.beone.app/register" class="mt-auto w-full py-3.5 rounded-full border-2 border-gray-700 hover:border-brand-500 text-white font-bold text-center transition" data-i18n="plan1_btn">Try for Free</a>
                 </div>
 
-                <!-- Pro -->
+                <!-- Pro Athlete -->
                 <div class="bg-brand-500/10 border-2 border-brand-500 rounded-3xl p-8 flex flex-col relative transform md:-translate-y-4 shadow-[0_0_40px_-15px_rgba(16,185,129,0.3)] items-center pt-10">
-                    <div class="absolute top-0 right-1/2 transform translate-x-1/2 -translate-y-1/2 bg-brand-500 text-white text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full backdrop-blur-md">PRO PERFORMANCE</div>
-                    <h4 class="text-xl font-bold text-brand-400 mb-2">Plano Pro</h4>
-                    <p class="text-gray-400 font-medium mb-6">Máximo Desenvolvimento</p>
-                    <div class="text-5xl font-black text-white mb-2 flex items-baseline">9.99€<span class="text-lg text-gray-500 font-medium tracking-normal ml-1">/mês</span></div>
-                    <p class="text-xs text-gray-500 line-through mb-4">era 14.99€</p>
+                    <div class="absolute top-0 right-1/2 transform translate-x-1/2 -translate-y-1/2 bg-brand-500 text-white text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full backdrop-blur-md" data-i18n="plan2_badge">PRO PERFORMANCE</div>
+                    <h4 class="text-xl font-bold text-brand-400 mb-2" data-i18n="plan2_title">Athlete Plan</h4>
+                    <p class="text-gray-400 font-medium mb-6" data-i18n="plan2_desc">Maximum Development</p>
+                    <div class="text-5xl font-black text-white mb-2 flex items-baseline">$29.99<span class="text-lg text-gray-500 font-medium tracking-normal ml-1" data-i18n="plan_mo">/mo</span></div>
+                    <p class="text-xs text-gray-500 line-through mb-4" data-i18n="plan2_old">was $44.99</p>
                     <ul class="space-y-3 mb-8 w-full">
-                        <li class="flex gap-3 text-sm text-white font-medium"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Tudo no Trial, Ilimitado</li>
-                        <li class="flex gap-3 text-sm text-white font-medium"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Análise de Carga ACWR Profunda</li>
-                        <li class="flex gap-3 text-sm text-white font-medium"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Coach IA Ilimitado (10 max/sessão)</li>
-                        <li class="flex gap-3 text-sm text-white font-medium"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Vídeo Feedback Pessoal</li>
-                        <li class="flex gap-3 text-sm text-white font-medium"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Exportação Dossier PDF Scout</li>
-                        <li class="flex gap-3 text-sm text-white font-medium"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Milestones e Gamificação</li>
+                        <li class="flex gap-3 text-sm text-white font-medium"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg><span data-i18n="plan2_li1">Everything in Trial, Unlimited</span></li>
+                        <li class="flex gap-3 text-sm text-white font-medium"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg><span data-i18n="plan2_li2">Deep ACWR Load Analysis</span></li>
+                        <li class="flex gap-3 text-sm text-white font-medium"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg><span data-i18n="plan2_li3">Unlimited Coach AI Chats</span></li>
+                        <li class="flex gap-3 text-sm text-white font-medium"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg><span data-i18n="plan2_li4">Parent/Scout PDF Export</span></li>
+                        <li class="flex gap-3 text-sm text-white font-medium"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg><span data-i18n="plan2_li5">Milestones & Gamification</span></li>
                     </ul>
-                    <a href="https://app.beone.app/register" class="mt-auto w-full py-4 rounded-full bg-brand-500 hover:bg-brand-400 text-white font-black text-center transition shadow-lg shadow-brand-500/25">Iniciar Treino Pro</a>
-                </div>
-
-                <!-- Club -->
-                <div class="bg-dark-800 border border-gray-800 rounded-3xl p-8 flex flex-col transition duration-300 card-hover items-center pt-10">
-                    <h4 class="text-xl font-bold text-white mb-2">Club & Family</h4>
-                    <p class="text-gray-500 font-medium mb-6">Equipas Pequenas e Grupos</p>
-                    <div class="text-4xl font-black text-white mb-2 flex items-baseline">99€<span class="text-lg text-gray-500 font-medium tracking-normal ml-1">/mês</span></div>
-                    <p class="text-xs text-gray-500 mb-6">Pack inicial de 10 atletas</p>
-                    <ul class="space-y-3 mb-8 w-full">
-                        <li class="flex gap-3 text-sm text-gray-300"><svg class="w-5 h-5 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Todos os Atletas no Plano Pro</li>
-                        <li class="flex gap-3 text-sm text-gray-300"><svg class="w-5 h-5 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Acesso Treinador B2B "Team View"</li>
-                        <li class="flex gap-3 text-sm text-gray-300"><svg class="w-5 h-5 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Resumo Agregado de Lesões</li>
-                        <li class="flex gap-3 text-sm text-gray-300"><svg class="w-5 h-5 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Upload e Review Tático</li>
-                    </ul>
-                    <a href="mailto:contact@beone.app" class="mt-auto w-full py-3.5 rounded-full bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white font-bold text-center transition">Falar com Consultores</a>
+                    <a href="https://app.beone.app/register" class="mt-auto w-full py-4 rounded-full bg-brand-500 hover:bg-brand-400 text-white font-black text-center transition shadow-lg shadow-brand-500/25" data-i18n="plan2_btn">Start Pro Training</a>
                 </div>
             </div>
         </div>
@@ -287,10 +284,10 @@
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-gradient-to-r from-brand-600 to-brand-400 rounded-3xl p-10 md:p-16 text-center shadow-2xl relative overflow-hidden">
                 <div class="absolute inset-0 bg-dark-900/10"></div>
-                <h2 class="text-3xl md:text-5xl font-black text-white mb-6 relative z-10 tracking-tight">O Fim dos Treinos Genéricos.</h2>
-                <p class="text-brand-100 text-lg md:text-xl max-w-2xl mx-auto mb-10 relative z-10 font-medium">As academias e tryouts exigem consistência, carga balisada e recuperação profissional. Não dês hipóteses ao acaso.</p>
+                <h2 class="text-3xl md:text-5xl font-black text-white mb-6 relative z-10 tracking-tight" data-i18n="cta_title">The End of Generic Workouts.</h2>
+                <p class="text-brand-100 text-lg md:text-xl max-w-2xl mx-auto mb-10 relative z-10 font-medium" data-i18n="cta_desc">Academies and tryouts demand consistency, strict load management, and professional recovery. Leave nothing to chance.</p>
                 <a href="https://app.beone.app/register" class="relative z-10 inline-flex px-10 py-5 bg-dark-900 hover:bg-black text-white rounded-full font-black text-lg transition-transform transform hover:scale-105 shadow-xl items-center gap-3">
-                    Registar o meu Perfil Grátis
+                    <span data-i18n="cta_btn">Create My Profile Frame Free</span>
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
             </div>
@@ -310,14 +307,133 @@
             </div>
             
             <div class="flex space-x-6 text-sm text-gray-500 font-medium">
-                <a href="https://app.beone.app/login" class="hover:text-brand-400 transition">Log In App</a>
-                <a href="#" class="hover:text-brand-400 transition">Termos & LGPD</a>
-                <a href="#" class="hover:text-brand-400 transition">Privacidade COPPA</a>
+                <a href="https://app.beone.app/login" class="hover:text-brand-400 transition" data-i18n="foot_login">App Login</a>
+                <a href="#" class="hover:text-brand-400 transition" data-i18n="foot_terms">Terms</a>
+                <a href="#" class="hover:text-brand-400 transition" data-i18n="foot_privacy">Privacy & COPPA</a>
             </div>
             
-            <p class="text-xs text-gray-600 font-medium">© 2026 PerformaFC. Youth Soccer Engine.</p>
+            <p class="text-xs text-gray-600 font-medium" data-i18n="foot_copy">© 2026 PerformaFC. Youth Science Engine.</p>
         </div>
     </footer>
 
+    <!-- Translations Logic -->
+    <script>
+        const translations = {
+            en: {
+                nav_platform: "The Platform", nav_engine: "AI Engine", nav_pricing: "Pricing", nav_login: "Login", nav_start: "Start Free",
+                hero_badge: "The Youth Soccer Performance Engine",
+                hero_title_1: "Arriving ready to the Tryout", hero_title_2: "is a Science.",
+                hero_subtitle: "The only performance system for youth soccer athletes (7-17) with an <strong>AI Decision Engine</strong>. We evaluate your daily readiness, manage physical load, and generate tactical sessions.",
+                hero_cta_primary: "Start 1st Microcycle Free", hero_cta_secondary: "How the AI works",
+                hero_disclaimer: "No credit card required · 14-day Trial · 2,262+ Drills available",
+                trust_title: "Powered by the science of",
+                plat_badge: "The Current Paradigm", plat_title: "Training blind causes injuries.", plat_subtitle: "Most apps just show videos. We cross-reference your 8-point check-in with your weekly load to prescribe the exact safe intensity.",
+                feat1_title: "Readiness Check-in", feat1_desc: "Evaluate sleep, fatigue, hydration, and soreness in 30 seconds. The system auto-calculates your effort zone (Day Color).",
+                feat2_title: "Adaptive Engine (7-17)", feat2_desc: "We generate weekly microcycles (Green, Yellow, Red) tailored to your exact age, position, and club match days.",
+                feat3_title: "Parent & Scout Dashboard", feat3_desc: "Guardians track the evolution (Consistency & ACWR). Allows PDF export to prove readiness to scouts.",
+                ai_badge: "Safeguarded Intelligence", ai_title: "100% Real Soccer Coach AI.", ai_subtitle: "We integrated an AI model designed exclusively for Youth Development. Ask up to 10 questions/session directly to your AI Coach.",
+                ai_bullet1_title: "Clear Tactical Intent", ai_bullet1_desc: "Before starting the Drill, the AI explains the structural 'Why' based on your player role.",
+                ai_bullet2_title: "Hard-Rule Injury Prevention", ai_bullet2_desc: "A readiness pain score >8 forces the system to switch your session to Recovery Mode (Red Zone).",
+                ai_bullet3_title: "XP & Streaks", ai_bullet3_desc: "Build Consistency Streaks by completing sessions and unlock badges like 'Tactical Genius'.",
+                mock_status: "Status: YELLOW ZONE", mock_desc: "We noticed a decline in sleep quality. Since you have a Club Match (D-2), the Engine adjusted tonight to 'Active Recovery'.",
+                mock_user_msg: "Coach, my calves feel heavy, should I push through the C1 sprints?",
+                mock_ai_msg: "I don't recommend it. With your high load, high acceleration sprints drastically increase muscle strain risk. Focus on D1 (Base Tech) and R2 (Mobility).",
+                price_badge: "Subscription Models", price_title: "Focused on the Athlete.", price_subtitle: "Cancel with one click inside the app. Secured via Stripe.",
+                plan1_title: "Kick-Off Trial", plan1_desc: "14 Days Test-Drive", plan1_li1: "Daily Readiness & RPE", plan1_li2: "AI Microcycles Access", plan1_li3: "3 Questions/day to Coach AI", plan1_li4: "Basic Parent Tracking", plan1_btn: "Try for Free",
+                plan2_badge: "PRO PERFORMANCE", plan2_title: "Athlete Plan", plan2_desc: "Maximum Development", plan_mo: "/mo", plan2_old: "was $44.99",
+                plan2_li1: "Everything in Trial, Unlimited", plan2_li2: "Deep ACWR Load Analysis", plan2_li3: "Unlimited Coach AI Chats", plan2_li4: "Parent/Scout PDF Export", plan2_li5: "Milestones & Gamification", plan2_btn: "Start Pro Training",
+                cta_title: "The End of Generic Workouts.", cta_desc: "Academies and tryouts demand consistency, strict load management, and professional recovery. Leave nothing to chance.", cta_btn: "Create My Profile Free",
+                foot_login: "App Login", foot_terms: "Terms", foot_privacy: "Privacy", foot_copy: "© 2026 PerformaFC. Youth Science Engine."
+            },
+            pt: {
+                nav_platform: "A Plataforma", nav_engine: "Motor AI", nav_pricing: "Preços", nav_login: "Entrar", nav_start: "Grátis",
+                hero_badge: "A Plataforma AI para Futebol de Base",
+                hero_title_1: "Chegar preparado ao Tryout", hero_title_2: "é uma Ciência.",
+                hero_subtitle: "O único sistema de performance para atletas de base (7-17 anos) com <strong>Motor de Decisão em IA</strong>. Avaliamos a tua prontidão diária, gerimos a carga física e adaptamos o treino.",
+                hero_cta_primary: "1º Microciclo Grátis", hero_cta_secondary: "Como a IA funciona",
+                hero_disclaimer: "Sem cartão de crédito · 14 Dias Trial · 2.262+ Drills disponíveis",
+                trust_title: "A ciência por trás do sistema",
+                plat_badge: "O Paradigma Atual", plat_title: "Treinar cego causa lesões.", plat_subtitle: "A maioria das apps apenas mostra vídeos. Nós cruzamos o check-in diário de 8 pontos com a tua carga semanal para prescrever a intensidade exata.",
+                feat1_title: "Check-in de Prontidão", feat1_desc: "Avalia sono, fadiga, stress hídrico e dor em 30 seg. O sistema calcula a tua zona (Cor do Dia).",
+                feat2_title: "Motor Adaptativo (7-17)", feat2_desc: "Geramos microciclos (Verde, Amarelo, Vermelho) considerando a tua idade exata, posição e jogos do clube.",
+                feat3_title: "Painel Pais e Scouts", feat3_desc: "Guardiões analisam a evolução (Consistência e ACWR). Exporta PDF profundo para provar evolução nos Tryouts.",
+                ai_badge: "Inteligência Restrita e Segura", ai_title: "Coach IA 100% de Futebol.", ai_subtitle: "Integramos um modelo LLM blindado só para futebol de base. Faz até 10 perguntas táticas por sessão ao nosso AI Assistant.",
+                ai_bullet1_title: "Intenção Tática Clara", ai_bullet1_desc: "A inteligência explica o 'Porquê' estrutural antes do vídeo do Drill.",
+                ai_bullet2_title: "Prevenção por Regras Duras", ai_bullet2_desc: "Dor muscular >8 força a IA a colocar o teu treino em Modo Vermelho (Recuperação Ativa).",
+                ai_bullet3_title: "XP & Recompensas", ai_bullet3_desc: "Mantém sequências e desbloqueia badges épicos como 'Génio Tático'.",
+                mock_status: "Status: ZONA AMARELA", mock_desc: "Notámos um declínio no teu sono e tens jogo no Sábado (D-2). O Motor ajustou o teu treino para 'Recuperação Ativa'.",
+                mock_user_msg: "Coach, sinto as panturrilhas pesadas, devo forçar os sprints C1?",
+                mock_ai_msg: "Não recomendo. Com a carga atual, sprints severos aumentam o risco de rutura muscular. Faz apenas Técnica Básica (D1).",
+                price_badge: "Modelos de Subscrição", price_title: "Feito para o Atleta.", price_subtitle: "Cancela com um clique via Stripe.",
+                plan1_title: "Trial Kick-Off", plan1_desc: "Teste Gratuito 14 Dias", plan1_li1: "RPE & Prontidão Diária", plan1_li2: "Acesso aos Microciclos", plan1_li3: "3 Perguntas/dia ao Coach", plan1_li4: "Dossier Básico Familiar", plan1_btn: "Testar Gratuitamente",
+                plan2_badge: "PERFORMANCE PRO", plan2_title: "Plano Atleta", plan2_desc: "Evolução Máxima", plan_mo: "/mês", plan2_old: "era $44.99",
+                plan2_li1: "O Plano Grátis + Ilimitado", plan2_li2: "Cálculo Profundo ACWR", plan2_li3: "Coach IA Ilimitado", plan2_li4: "Geração PDF Scout", plan2_li5: "Desbloqueio Gamificação", plan2_btn: "Assinar Atleta Pro",
+                cta_title: "O Fim dos Treinos Normais.", cta_desc: "As academias profissionais exigem consistência, gestão de lesões e inteligência tática. Não deixes o teu talento ao acaso.", cta_btn: "Criar o meu Perfil",
+                foot_login: "Entrar na App", foot_terms: "Termos", foot_privacy: "Privacidade", foot_copy: "© 2026 PerformaFC. Youth Science Engine."
+            },
+            es: {
+                nav_platform: "La Plataforma", nav_engine: "Motor IA", nav_pricing: "Precios", nav_login: "Entrar", nav_start: "Gratis",
+                hero_badge: "La Plataforma IA de Fútbol Base",
+                hero_title_1: "Acudir preparado al Tryout", hero_title_2: "es una Ciencia.",
+                hero_subtitle: "El único sistema de rendimiento para futbolistas base (7-17) con <strong>Motor de Decisión IA</strong>. Evaluamos tu fatiga, gestionamos carga física y adaptamos tus sesiones.",
+                hero_cta_primary: "Mi 1º Microciclo", hero_cta_secondary: "Cómo actúa la IA",
+                hero_disclaimer: "Sin tarjeta · 14 Días Prueba · 2.262+ Drills activos",
+                trust_title: "Desarrollado con la ciencia de",
+                plat_badge: "El Paradigma Actual", plat_title: "Entrenar a ciegas lesiona.", plat_subtitle: "No mostramos solo vídeos. Analizamos tu check-in y prescribimos la intensidad exacta para evitar el sobreentrenamiento (ACWR).",
+                feat1_title: "Check-in de Disposición", feat1_desc: "Evalúa fatiga, agua y daño muscular en 30 seg. El sistema auto-calcula el color de tu día (Tu Zona).",
+                feat2_title: "Motor Adaptativo (7-17)", feat2_desc: "Microciclos (Verde, Amarillo, Rojo) automáticos usando tu rol, edad y partidos.",
+                feat3_title: "Dossier para Padres", feat3_desc: "Los tutores evalúan tu consistencia para luego crear un informe exportable PDF para agentes o técnicos.",
+                ai_badge: "IA Protegida 100%", ai_title: "Tu Coach de IA Exclusivo.", ai_subtitle: "Hemos restringido la IA únicamente al fútbol. Hazle hasta 10 consultas tácticas antes o después del entrenamiento.",
+                ai_bullet1_title: "Finalidad Táctica", ai_bullet1_desc: "Entiende el 'Por qué' del drill y las líneas de pase idóneas.",
+                ai_bullet2_title: "Protección por Reglas", ai_bullet2_desc: "Indicadores altos en dolor cancelan automáticamente el sprint y te redirigen a Recuperación.",
+                ai_bullet3_title: "Gamificación", ai_bullet3_desc: "Gana credenciales y construye tu cadena de consistencia XP.",
+                mock_status: "Estado: ZONA AMARILLA", mock_desc: "Mala calidad del sueño detectada + Partido Oficial (D-2). Ajustamos a Recuperación Activa.",
+                mock_user_msg: "Míster, gemelos al límite, ¿puedo acelerar los tramos C1?",
+                mock_ai_msg: "Desaconsejado. Ese esfuerzo maximiza el riesgo de rotura. Céntrate 100% en Técnica (D1) y Articulación (R2).",
+                price_badge: "Suscripciones", price_title: "Pensado para el Deportista.", price_subtitle: "Cancela 1-click. Plataforma Segura (Stripe).",
+                plan1_title: "Trial de Inicio", plan1_desc: "Prueba 14 Días", plan1_li1: "Módulo Diario Prontitud", plan1_li2: "IA Microciclos Normales", plan1_li3: "Coach IA (3/día)", plan1_li4: "Vista Parental Simple", plan1_btn: "Arrancar Trial",
+                plan2_badge: "PODER ABSOLUTO", plan2_title: "Plan Atleta", plan2_desc: "Evolución Profesional", plan_mo: "/mes", plan2_old: "era $44.99",
+                plan2_li1: "Modalidad Gratuita Ilimitada", plan2_li2: "Cálculo Crónico ACWR", plan2_li3: "IA Coach Completamente Libre", plan2_li4: "PDF Exportación Avanzada", plan2_li5: "Gamificación Completa", plan2_btn: "Acceder al Plan",
+                cta_title: "El Fin del Entrenamiento Genérico.", cta_desc: "El fútbol competitivo pide prevención, gestión física e inteligencia. No dejes ningún esfuerzo al azar.", cta_btn: "Generar Perfil Libre",
+                foot_login: "Login App", foot_terms: "Términos", foot_privacy: "Privacidad", foot_copy: "© 2026 PerformaFC. AI Sports Engine."
+            }
+        };
+
+        const langSelect = document.getElementById('lang_select');
+        
+        function changeLanguage(lang) {
+            if (!translations[lang]) return;
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            // Update html lang attribute
+            document.documentElement.lang = lang;
+            // Optionally save to localStorage
+            try { localStorage.setItem('lang', lang); } catch(e){}
+        }
+
+        langSelect.addEventListener('change', (e) => {
+            changeLanguage(e.target.value);
+        });
+
+        // Initialize based on browser or saved preference
+        let initLang = 'en';
+        try {
+            const saved = localStorage.getItem('lang');
+            if (saved && translations[saved]) {
+                initLang = saved;
+            } else {
+                const browserLang = navigator.language.substring(0,2);
+                if (translations[browserLang]) initLang = browserLang;
+            }
+        } catch(e) {}
+        
+        langSelect.value = initLang;
+        changeLanguage(initLang);
+    </script>
 </body>
 </html>
