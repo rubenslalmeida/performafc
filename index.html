@@ -1,576 +1,323 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PerformaFC — Youth Soccer Performance Platform</title>
-  <meta name="description" content="Programas de treino com IA para atletas de futebol jovem dos 12 aos 18 anos. Ciência da prontidão diária, Coach IA e acompanhamento dos pais." />
-  <meta property="og:title" content="PerformaFC — Treine Mais Inteligente. Jogue Melhor." />
-  <meta property="og:description" content="Plataforma de performance para futebolistas jovens. IA, ciência do treino e acompanhamento familiar." />
-  <meta property="og:type" content="website" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --p: hsl(145, 75%, 50%);
-      --p-bg: hsl(145, 75%, 8%);
-      --p-dark: hsl(145, 75%, 35%);
-      --p-light: hsl(145, 75%, 62%);
-      --bg: hsl(220, 25%, 6%);
-      --card: hsl(220, 20%, 9%);
-      --border: hsl(220, 15%, 16%);
-      --fg: hsl(210, 20%, 96%);
-      --muted: hsl(215, 12%, 55%);
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--fg);
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { color: inherit; text-decoration: none; }
-    button {
-      font-family: inherit;
-      cursor: pointer;
-      border: none;
-      background: none;
-      color: inherit;
-    }
-    /* ── Layout ── */
-    .container { max-width: 500px; margin: 0 auto; padding: 0 20px; }
-    .section { padding-bottom: 80px; }
-
-    /* ── Navbar ── */
-    .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-      background: rgba(14, 17, 23, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 14px 20px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav-actions { display: flex; align-items: center; gap: 12px; }
-    .btn-ghost {
-      font-size: 13px; font-weight: 700; color: var(--muted);
-      transition: color .2s;
-    }
-    .btn-ghost:hover { color: var(--fg); }
-    .btn-primary {
-      padding: 8px 16px; border-radius: 12px;
-      font-size: 12px; font-weight: 900;
-      background: var(--p); color: var(--p-bg);
-      transition: opacity .2s, transform .15s;
-      display: inline-flex; align-items: center; gap: 6px;
-    }
-    .btn-primary:hover { opacity: .9; transform: scale(1.02); }
-    .btn-primary-lg {
-      width: 100%; padding: 16px; border-radius: 18px;
-      font-size: 15px; font-weight: 900;
-      background: var(--p); color: var(--p-bg);
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      box-shadow: 0 8px 24px rgba(38,200,100,.25);
-      transition: transform .15s, box-shadow .15s;
-    }
-    .btn-primary-lg:hover { transform: scale(1.015); box-shadow: 0 12px 32px rgba(38,200,100,.35); }
-    .btn-outline {
-      width: 100%; padding: 14px; border-radius: 18px;
-      font-size: 14px; font-weight: 900;
-      border: 1px solid var(--border); color: var(--fg);
-      transition: border-color .2s, background .2s;
-    }
-    .btn-outline:hover { border-color: var(--p); background: rgba(38,200,100,.06); }
-
-    /* ── Hero ── */
-    .hero {
-      padding-top: 120px; padding-bottom: 64px;
-      text-align: center; position: relative; overflow: hidden;
-    }
-    .hero-glow {
-      position: absolute; top: 60px; left: 50%; transform: translateX(-50%);
-      width: 600px; height: 400px; border-radius: 50%;
-      background: radial-gradient(ellipse, hsl(145,75%,50%) 0%, transparent 65%);
-      opacity: .08; pointer-events: none;
-    }
-    .hero-pitch {
-      position: absolute; inset: 0; pointer-events: none; opacity: .025;
-      width: 100%; height: 100%;
-    }
-    .badge-pill {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 6px 14px; border-radius: 50px;
-      font-size: 11px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase;
-      background: hsl(145,75%,50%, .09); border: 1px solid hsl(145,75%,50%,.35);
-      color: var(--p); margin-bottom: 24px;
-    }
-    .badge-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--p); animation: pulse 1.8s ease-in-out infinite;
-    }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
-    h1 {
-      font-size: clamp(32px, 8vw, 42px); font-weight: 900;
-      line-height: 1.08; letter-spacing: -.03em; margin-bottom: 20px;
-    }
-    h1 span { color: var(--p); }
-    .hero-sub {
-      color: var(--muted); font-size: 15px; line-height: 1.65;
-      margin-bottom: 32px; max-width: 340px; margin-left: auto; margin-right: auto;
-    }
-    .hero-ctas { max-width: 300px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
-    .hero-note { font-size: 12px; color: var(--muted); margin-top: 4px; }
-
-    /* ── Stats ── */
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .stat-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 18px; padding: 16px; text-align: center;
-    }
-    .stat-val { font-size: 24px; font-weight: 900; color: var(--p); }
-    .stat-label { font-size: 10px; color: var(--muted); margin-top: 4px; line-height: 1.3; }
-
-    /* ── Section headers ── */
-    .section-label {
-      font-size: 11px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
-      color: var(--p); text-align: center; margin-bottom: 8px;
-    }
-    h2 {
-      font-size: 24px; font-weight: 900; text-align: center;
-      color: var(--fg); margin-bottom: 12px;
-    }
-    .section-sub { font-size: 12px; color: var(--muted); text-align: center; margin-bottom: 32px; }
-
-    /* ── How it works ── */
-    .steps { display: flex; flex-direction: column; gap: 12px; }
-    .step-card {
-      display: flex; gap: 16px; align-items: flex-start;
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 18px; padding: 16px;
-    }
-    .step-num {
-      font-size: 26px; font-weight: 900; min-width: 40px;
-      color: hsl(145,75%,50%,.45); line-height: 1;
-    }
-    .step-title { font-size: 13px; font-weight: 900; margin-bottom: 4px; }
-    .step-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
-
-    /* ── Features grid ── */
-    .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .feature-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 18px; padding: 16px;
-    }
-    .feature-icon { font-size: 24px; margin-bottom: 8px; display: block; }
-    .feature-title { font-size: 12px; font-weight: 900; margin-bottom: 4px; line-height: 1.3; }
-    .feature-desc { font-size: 11px; color: var(--muted); line-height: 1.55; }
-
-    /* ── Testimonials ── */
-    .testimonials { display: flex; flex-direction: column; gap: 16px; }
-    .testimonial-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 20px; padding: 20px;
-    }
-    .stars { display: flex; gap: 2px; margin-bottom: 12px; }
-    .testimonial-text { font-size: 14px; line-height: 1.6; margin-bottom: 12px; }
-    .testimonial-author { display: flex; align-items: center; gap: 10px; }
-    .author-avatar {
-      width: 32px; height: 32px; border-radius: 50%;
-      background: var(--p); color: var(--p-bg);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 13px; font-weight: 900; flex-shrink: 0;
-    }
-    .author-name { font-size: 12px; font-weight: 900; }
-    .author-role { font-size: 11px; color: var(--muted); }
-
-    /* ── Pricing ── */
-    .plans { display: flex; flex-direction: column; gap: 16px; }
-    .plan-card {
-      border-radius: 24px; border: 1px solid var(--border);
-      padding: 24px; position: relative; overflow: hidden;
-      background: var(--card);
-    }
-    .plan-card.highlight {
-      border-color: hsl(145,75%,50%,.55);
-      background: hsl(145,75%,50%,.04);
-    }
-    .plan-badge {
-      position: absolute; top: 0; right: 0;
-      font-size: 9px; font-weight: 900; padding: 6px 14px;
-      border-radius: 0 0 0 16px; letter-spacing: .12em;
-      background: var(--p); color: var(--p-bg);
-    }
-    .plan-price { display: flex; align-items: flex-end; gap: 8px; margin-bottom: 4px; }
-    .plan-price-main { font-size: 32px; font-weight: 900; color: var(--p); }
-    .plan-price-main.normal { color: var(--fg); }
-    .plan-price-old { font-size: 14px; color: var(--muted); margin-bottom: 4px; text-decoration: line-through; }
-    .plan-price-period { font-size: 14px; color: var(--muted); margin-bottom: 4px; }
-    .plan-name { font-size: 14px; font-weight: 900; margin-bottom: 4px; }
-    .plan-desc { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
-    .plan-features { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
-    .plan-feature { display: flex; align-items: center; gap: 10px; }
-    .check-circle {
-      width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0;
-      background: hsl(145,75%,50%,.18);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .plan-feature-text { font-size: 12px; }
-
-    /* ── CTA ── */
-    .cta-box {
-      border-radius: 24px; padding: 32px; text-align: center;
-      position: relative; overflow: hidden;
-      background: hsl(145,75%,50%,.05);
-      border: 1px solid hsl(145,75%,50%,.25);
-    }
-    .cta-glow {
-      position: absolute; top: 0; right: 0; width: 160px; height: 160px;
-      border-radius: 50%; pointer-events: none;
-      background: radial-gradient(ellipse, hsl(145,75%,50%) 0%, transparent 70%);
-      opacity: .1;
-    }
-    .cta-title { font-size: 24px; font-weight: 900; margin-bottom: 8px; }
-    .cta-sub { font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
-    .cta-note { font-size: 12px; color: var(--muted); margin-top: 12px; }
-
-    /* ── Footer ── */
-    footer {
-      border-top: 1px solid var(--border); padding: 32px 20px;
-    }
-    .footer-inner {
-      max-width: 500px; margin: 0 auto;
-    }
-    .footer-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-    .footer-links { display: flex; gap: 16px; }
-    .footer-link { font-size: 12px; color: var(--muted); transition: color .2s; }
-    .footer-link:hover { color: var(--fg); }
-    .footer-bottom {
-      border-top: 1px solid var(--border); padding-top: 16px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .footer-copy { font-size: 11px; color: var(--muted); }
-
-    /* ── Logo SVG inline ── */
-    .logo-full { display: flex; align-items: center; gap: 10px; }
-    .logo-text { display: flex; flex-direction: column; line-height: 1; }
-    .logo-performa { font-weight: 900; color: var(--fg); letter-spacing: -.02em; }
-    .logo-fc { font-weight: 900; color: var(--p); letter-spacing: .22em; }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PerformaFC | Youth Soccer Performance Platform</title>
+    <meta name="description" content="A primeira plataforma para atletas de futebol base (12-18) com Motor de Decisão AI. Ciência da prontidão diária, gestão de carga ACWR e relatórios para Scouts." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            DEFAULT: '#10b981',
+                        },
+                        dark: {
+                            900: '#0B0E14',
+                            800: '#111827',
+                            700: '#1F2937',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0B0E14; color: #F3F4F6; }
+        .glow-text { text-shadow: 0 0 20px rgba(16, 185, 129, 0.4); }
+        .gradient-text { background: linear-gradient(135deg, #34d399 0%, #059669 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-glow { position: absolute; top: -10%; left: 50%; transform: translateX(-50%); width: 800px; height: 500px; background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, rgba(11,14,20,0) 70%); pointer-events: none; z-index: -1; }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.5); }
+        .nav-blur { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    </style>
 </head>
-<body>
+<body class="antialiased selection:bg-brand-500 selection:text-white">
 
-  <!-- ── Navbar ─────────────────────────────────────────────────── -->
-  <nav class="nav">
-    <a href="/" class="logo-full" style="text-decoration:none">
-      <svg width="36" height="36" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="g1" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="hsl(145,75%,62%)"/>
-            <stop offset="100%" stop-color="hsl(145,75%,50%)"/>
-          </linearGradient>
-        </defs>
-        <rect x="0" y="0" width="44" height="44" rx="11" fill="url(#g1)"/>
-        <rect x="1" y="1" width="42" height="42" rx="10" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
-        <path d="M10 9 L10 35" stroke="white" stroke-width="5.5" stroke-linecap="round"/>
-        <path d="M10 9.5 L14 9.5 Q26 9.5 26 18 Q26 26.5 14 26.5 L10 26.5" stroke="white" stroke-width="5.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="18" cy="18" r="4.5" fill="none" stroke="hsl(145,75%,35%)" stroke-width="1.8"/>
-        <line x1="18" y1="13.5" x2="18" y2="22.5" stroke="hsl(145,75%,35%)" stroke-width="1.2" stroke-linecap="round"/>
-        <line x1="13.5" y1="18" x2="22.5" y2="18" stroke="hsl(145,75%,35%)" stroke-width="1.2" stroke-linecap="round"/>
-        <g stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="30,13 36,18 30,23" stroke="white" stroke-width="2.8" fill="none" opacity="0.9"/>
-          <polyline points="29,20 34,24 29,28" stroke="white" stroke-width="2.2" fill="none" opacity="0.55"/>
-          <polyline points="28,26 32,29 28,32" stroke="white" stroke-width="1.6" fill="none" opacity="0.28"/>
-        </g>
-      </svg>
-      <div class="logo-text">
-        <span class="logo-performa" style="font-size:16px">PERFORMA</span>
-        <span class="logo-fc" style="font-size:10px">FC</span>
-      </div>
-    </a>
-    <div class="nav-actions">
-      <a href="https://app.performafc.com/login" class="btn-ghost">Entrar</a>
-      <a href="https://app.performafc.com/register" class="btn-primary">Começar grátis</a>
-    </div>
-  </nav>
-
-  <!-- ── Hero ───────────────────────────────────────────────────── -->
-  <section class="hero">
-    <div class="hero-glow"></div>
-    <svg class="hero-pitch" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" fill="none">
-      <circle cx="200" cy="300" r="220" stroke="white" stroke-width="1.5"/>
-      <circle cx="200" cy="300" r="28" stroke="white" stroke-width="1.5"/>
-      <line x1="0" y1="300" x2="400" y2="300" stroke="white" stroke-width="1"/>
-    </svg>
-
-    <div class="container" style="position:relative">
-      <div class="badge-pill">
-        <span class="badge-dot"></span>
-        Youth Soccer Performance Platform
-      </div>
-
-      <!-- Logo mark large -->
-      <div style="display:flex;justify-content:center;margin-bottom:24px">
-        <svg width="80" height="80" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="g2" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="hsl(145,75%,62%)"/>
-              <stop offset="100%" stop-color="hsl(145,75%,50%)"/>
-            </linearGradient>
-          </defs>
-          <rect x="0" y="0" width="44" height="44" rx="11" fill="url(#g2)"/>
-          <rect x="1" y="1" width="42" height="42" rx="10" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
-          <path d="M10 9 L10 35" stroke="white" stroke-width="5.5" stroke-linecap="round"/>
-          <path d="M10 9.5 L14 9.5 Q26 9.5 26 18 Q26 26.5 14 26.5 L10 26.5" stroke="white" stroke-width="5.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="18" cy="18" r="4.5" fill="none" stroke="hsl(145,75%,35%)" stroke-width="1.8"/>
-          <line x1="18" y1="13.5" x2="18" y2="22.5" stroke="hsl(145,75%,35%)" stroke-width="1.2" stroke-linecap="round"/>
-          <line x1="13.5" y1="18" x2="22.5" y2="18" stroke="hsl(145,75%,35%)" stroke-width="1.2" stroke-linecap="round"/>
-          <g stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="30,13 36,18 30,23" stroke="white" stroke-width="2.8" fill="none" opacity="0.9"/>
-            <polyline points="29,20 34,24 29,28" stroke="white" stroke-width="2.2" fill="none" opacity="0.55"/>
-            <polyline points="28,26 32,29 28,32" stroke="white" stroke-width="1.6" fill="none" opacity="0.28"/>
-          </g>
-        </svg>
-      </div>
-
-      <h1>Treine Mais Inteligente.<br><span>Jogue Melhor.</span></h1>
-      <p class="hero-sub">
-        Programas de treino com IA, construídos à volta da ciência da prontidão diária —
-        para atletas de futebol jovem dos 12 aos 18 anos.
-      </p>
-
-      <div class="hero-ctas">
-        <a href="https://app.performafc.com/register" class="btn-primary-lg">
-          Começar Grátis
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 18l6-6-6-6"/>
-          </svg>
-        </a>
-        <p class="hero-note">Sem cartão de crédito · Cancela quando quiser</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Stats ──────────────────────────────────────────────────── -->
-  <section class="section">
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat-card"><div class="stat-val">2.262</div><div class="stat-label">Exercícios na Biblioteca</div></div>
-        <div class="stat-card"><div class="stat-val">12–18</div><div class="stat-label">Faixa Etária</div></div>
-        <div class="stat-card"><div class="stat-val">26+</div><div class="stat-label">Funcionalidades</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── How It Works ───────────────────────────────────────────── -->
-  <section class="section">
-    <div class="container">
-      <p class="section-label">Como Funciona</p>
-      <h2>O seu loop diário de performance</h2>
-      <div class="steps">
-        <div class="step-card">
-          <span class="step-num">01</span>
-          <div>
-            <p class="step-title">Check-in Diário</p>
-            <p class="step-desc">Avalie sono, energia, dores, stress e 4 outros indicadores em menos de 60 segundos.</p>
-          </div>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-dark-900/80 nav-blur transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-3">
+                    <svg width="40" height="40" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs><linearGradient id="gnav" x1="0" y1="0" x2="44" y2="44"><stop offset="0%" stop-color="#34d399"/><stop offset="100%" stop-color="#059669"/></linearGradient></defs>
+                        <rect width="44" height="44" rx="12" fill="url(#gnav)"/>
+                        <path d="M12 12 L12 32" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        <path d="M12 12 H18 Q26 12 26 18 Q26 24 18 24 H12" stroke="white" stroke-width="4" fill="none" stroke-linecap="round"/>
+                        <circle cx="18" cy="18" r="4" stroke="#064e3b" stroke-width="2"/>
+                    </svg>
+                    <div class="flex flex-col leading-none">
+                        <span class="text-xl font-black text-white tracking-tight">PERFORMA</span>
+                        <span class="text-xs font-bold text-brand-400 tracking-widest">FC</span>
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#plataforma" class="text-gray-300 hover:text-white font-medium transition">A Plataforma</a>
+                    <a href="#motor" class="text-gray-300 hover:text-white font-medium transition">Motor de IA</a>
+                    <a href="#planos" class="text-gray-300 hover:text-white font-medium transition">Preços</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="https://app.beone.app/login" class="text-gray-300 hover:text-white font-semibold transition text-sm">Entrar</a>
+                    <a href="https://app.beone.app/register" class="bg-brand-500 hover:bg-brand-400 text-white px-5 py-2.5 rounded-full font-bold text-sm transition shadow-lg shadow-brand-500/20">Começar Grátis</a>
+                </div>
+            </div>
         </div>
-        <div class="step-card">
-          <span class="step-num">02</span>
-          <div>
-            <p class="step-title">IA Lê a Sua Prontidão</p>
-            <p class="step-desc">O motor calcula a sua capacidade de carga e gera uma sessão ajustada à sua posição e fase de época.</p>
-          </div>
-        </div>
-        <div class="step-card">
-          <span class="step-num">03</span>
-          <div>
-            <p class="step-title">Treine Com a Sua Sessão</p>
-            <p class="step-desc">Aceda ao plano do dia com Coach IA disponível para responder dúvidas sobre cada exercício.</p>
-          </div>
-        </div>
-        <div class="step-card">
-          <span class="step-num">04</span>
-          <div>
-            <p class="step-title">Acompanhe a Evolução</p>
-            <p class="step-desc">Veja a tendência de prontidão, curva de carga ACWR e melhoria nos testes físicos ao longo do tempo.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </nav>
 
-  <!-- ── Features ───────────────────────────────────────────────── -->
-  <section class="section">
-    <div class="container">
-      <p class="section-label">Funcionalidades</p>
-      <h2>Tudo o que um atleta sério precisa</h2>
-      <p class="section-sub">26+ módulos construídos especificamente para futebol jovem</p>
-      <div class="features-grid">
-        <div class="feature-card"><span class="feature-icon">⚡</span><p class="feature-title">Sessões Personalizadas por IA</p><p class="feature-desc">Cada treino é gerado pela nossa IA com base na sua prontidão diária, posição e fase da época.</p></div>
-        <div class="feature-card"><span class="feature-icon">📊</span><p class="feature-title">Ciência da Prontidão Diária</p><p class="feature-desc">Check-in em 8 indicadores de bem-estar. O motor ACWR calcula a carga ideal e sinaliza risco de sobretreino.</p></div>
-        <div class="feature-card"><span class="feature-icon">🎯</span><p class="feature-title">Metas & Evolução</p><p class="feature-desc">Defina objetivos específicos (sprint, VO2max, nível XP) e acompanhe o progresso com gráficos de tendência.</p></div>
-        <div class="feature-card"><span class="feature-icon">⚽</span><p class="feature-title">Registo de Partidas</p><p class="feature-desc">Registe golos, assistências, minutos jogados e avaliação pessoal após cada jogo. Veja as estatísticas de época.</p></div>
-        <div class="feature-card"><span class="feature-icon">🩺</span><p class="feature-title">Gestão de Lesões</p><p class="feature-desc">Registe lesões com tipo, severidade e data de retorno. Acompanhe a recuperação com mensagens de apoio.</p></div>
-        <div class="feature-card"><span class="feature-icon">🧠</span><p class="feature-title">Diário Mental & Wellness</p><p class="feature-desc">Registe humor, motivação e reflexões. A pontuação Wellness integra prontidão, nutrição e estado mental.</p></div>
-        <div class="feature-card"><span class="feature-icon">🏆</span><p class="feature-title">Gamificação & Ranking</p><p class="feature-desc">Ganhe XP, suba de nível, desbloqueie conquistas e dispute o ranking da sua faixa etária.</p></div>
-        <div class="feature-card"><span class="feature-icon">👨‍👩‍👧</span><p class="feature-title">Painel dos Responsáveis</p><p class="feature-desc">Os pais têm acesso em tempo real à consistência, alertas RED e digestos semanais por e-mail.</p></div>
-      </div>
-    </div>
-  </section>
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="hero-glow"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-bold tracking-wide uppercase mb-8">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse"></span>
+                The Youth Soccer Performance Engine
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-black text-white tracking-tight mb-6 leading-tight">
+                Chegar preparado ao Tryout<br />
+                <span class="gradient-text glow-text">é uma Ciência.</span>
+            </h1>
+            
+            <p class="mt-4 text-xl text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed font-light">
+                O único sistema de performance para atletas de base (12-18) com um <strong>Motor de Decisão em IA</strong>. Avaliamos a tua prontidão diária, prevenimos lesões e geramos treinos com intenção tática para a tua posição.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="https://app.beone.app/register" class="w-full sm:w-auto px-8 py-4 bg-brand-500 hover:bg-brand-400 text-white rounded-full font-black text-lg transition-all transform hover:scale-105 shadow-[0_0_40px_-10px_rgba(16,185,129,0.5)] flex items-center justify-center gap-3">
+                    Inicia o 1º Microciclo Grátis
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+                <a href="#motor" class="w-full sm:w-auto px-8 py-4 bg-dark-800 hover:bg-dark-700 text-white rounded-full font-bold text-lg border border-gray-800 transition-colors">
+                    Como a IA funciona
+                </a>
+            </div>
+            <p class="mt-4 text-xs text-brand-500 font-medium">Sem cartão de crédito · Trial 14 dias · 2.262+ Drills disponíveis</p>
+        </div>
+    </section>
 
-  <!-- ── Testimonials ───────────────────────────────────────────── -->
-  <section class="section">
-    <div class="container">
-      <p class="section-label">Testemunhos</p>
-      <h2>Confiado por atletas e famílias</h2>
-      <div class="testimonials" style="margin-top:32px">
-        <div class="testimonial-card">
-          <div class="stars">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="hsl(145,75%,50%)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="hsl(145,75%,50%)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="hsl(145,75%,50%)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="hsl(145,75%,50%)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="hsl(145,75%,50%)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          </div>
-          <p class="testimonial-text">"A PerformaFC sinalizou que eu estava a sobrecarregar às segundas-feiras. Duas semanas depois bati o meu recorde no sprint de 30m. A ciência funciona mesmo."</p>
-          <div class="testimonial-author"><div class="author-avatar">M</div><div><p class="author-name">Marcus T.</p><p class="author-role">Médio U17 · Atlanta FC Academy</p></div></div>
+    <!-- Logo Cloud / Trust -->
+    <section class="border-y border-white/5 bg-dark-800/50 py-10">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 opacity-60">
+            <span class="text-sm font-bold uppercase tracking-widest text-gray-500">Desenvolvido com a ciência de</span>
+            <div class="flex gap-8 md:gap-16 font-black text-xl text-gray-400 tracking-tight">
+                <span>ACWR Metrics</span>
+                <span>OpenAI Coach</span>
+                <span>RLS Security</span>
+            </div>
         </div>
-        <div class="testimonial-card">
-          <div class="stars">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="hsl(145,75%,50%)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="hsl(145,75%,50%)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="hsl(145,75%,50%)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="hsl(145,75%,50%)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="hsl(145,75%,50%)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          </div>
-          <p class="testimonial-text">"Vejo o painel todas as manhãs. Finalmente sei como meu filho está se sentindo e como foi o treino. Mudou completamente nossas conversas."</p>
-          <div class="testimonial-author"><div class="author-avatar">S</div><div><p class="author-name">Sara M.</p><p class="author-role">Responsável · Dallas FC Academy</p></div></div>
-        </div>
-        <div class="testimonial-card">
-          <div class="stars">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="hsl(145,75%,50%)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="hsl(145,75%,50%)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="hsl(145,75%,50%)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="hsl(145,75%,50%)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="hsl(145,75%,50%)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          </div>
-          <p class="testimonial-text">"Os dados de prontidão mudaram a forma como planeamos as sessões. Deixámos de adivinhar a fadiga e passámos a tomar decisões com dados reais."</p>
-          <div class="testimonial-author"><div class="author-avatar">R</div><div><p class="author-name">Coach Rodriguez</p><p class="author-role">Diretor de Academia Sub-17</p></div></div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ── Pricing ────────────────────────────────────────────────── -->
-  <section class="section">
-    <div class="container">
-      <p class="section-label">Planos</p>
-      <h2>Simples e transparente</h2>
-      <p class="section-sub">Começa grátis. Faz upgrade quando estiveres pronto.</p>
-      <div class="plans">
-        <!-- Trial -->
-        <div class="plan-card">
-          <div class="plan-price">
-            <span class="plan-price-main normal">Grátis</span>
-          </div>
-          <p class="plan-name">Trial</p>
-          <p class="plan-desc">14 dias com acesso completo. Sem cartão de crédito.</p>
-          <div class="plan-features">
-            <div class="plan-feature"><div class="check-circle"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="hsl(145,75%,50%)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="plan-feature-text">Check-in diário + prontidão</span></div>
-            <div class="plan-feature"><div class="check-circle"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="hsl(145,75%,50%)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="plan-feature-text">Sessões personalizadas por IA</span></div>
-            <div class="plan-feature"><div class="check-circle"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="hsl(145,75%,50%)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="plan-feature-text">Coach IA (5 perguntas/dia)</span></div>
-            <div class="plan-feature"><div class="check-circle"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="hsl(145,75%,50%)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="plan-feature-text">Testes físicos + benchmarks</span></div>
-            <div class="plan-feature"><div class="check-circle"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="hsl(145,75%,50%)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="plan-feature-text">Metas de performance</span></div>
-            <div class="plan-feature"><div class="check-circle"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="hsl(145,75%,50%)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="plan-feature-text">Registo de partidas</span></div>
-            <div class="plan-feature"><div class="check-circle"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="hsl(145,75%,50%)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="plan-feature-text">Painel do responsável</span></div>
-            <div class="plan-feature"><div class="check-circle"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="hsl(145,75%,50%)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="plan-feature-text">Relatório PDF Scout</span></div>
-          </div>
-          <a href="https://app.performafc.com/register" class="btn-outline" style="display:block;text-align:center;padding:14px;border-radius:18px;font-weight:900;font-size:14px;border:1px solid var(--border);color:var(--fg);transition:border-color .2s,background .2s">Começar grátis</a>
-        </div>
-        <!-- Growth -->
-        <div class="plan-card highlight">
-          <div class="plan-badge">MAIS POPULAR</div>
-          <div class="plan-price">
-            <span class="plan-price-main">$29,99</span>
-            <span class="plan-price-old">$44,99</span>
-            <span class="plan-price-period">/mês</span>
-          </div>
-          <p class="plan-name">Growth</p>
-          <p class="plan-desc">Para atletas sérios que querem maximizar cada treino.</p>
-          <div class="plan-features">
-            <div class="plan-feature"><div class="check-circle"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="hsl(145,75%,50%)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="plan-feature-text">Tudo do Trial, sem limite de dias</span></div>
-            <div class="plan-feature"><div class="check-circle"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="hsl(145,75%,50%)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="plan-feature-text">Coach IA ilimitado</span></div>
-            <div class="plan-feature"><div class="check-circle"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="hsl(145,75%,50%)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="plan-feature-text">Análise ACWR avançada + alertas</span></div>
-            <div class="plan-feature"><div class="check-circle"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="hsl(145,75%,50%)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="plan-feature-text">Timeline de progressão completa</span></div>
-            <div class="plan-feature"><div class="check-circle"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="hsl(145,75%,50%)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="plan-feature-text">Calendário de atividade (heatmap)</span></div>
-            <div class="plan-feature"><div class="check-circle"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="hsl(145,75%,50%)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="plan-feature-text">Notificações push personalizadas</span></div>
-            <div class="plan-feature"><div class="check-circle"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="hsl(145,75%,50%)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="plan-feature-text">Exportação de dados PDF</span></div>
-            <div class="plan-feature"><div class="check-circle"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="hsl(145,75%,50%)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span class="plan-feature-text">Suporte prioritário</span></div>
-          </div>
-          <a href="https://app.performafc.com/register" class="btn-primary-lg" style="text-align:center">Assinar Growth</a>
-        </div>
-      </div>
-    </div>
-  </section>
+    <!-- The Problem / Solution (Platform) -->
+    <section id="plataforma" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-brand-500 font-bold tracking-widest uppercase text-sm mb-3">O Paradigma Atual</h2>
+                <h3 class="text-3xl md:text-5xl font-black text-white mb-6">Treinar às cegas causa lesões.</h3>
+                <p class="text-gray-400 text-lg">A maioria das apps apenas mostra vídeos. Nós cruzamos o teu check-in diário com a tua carga semanal para prescrever a intensidade exata de treino que previne o overtraining.</p>
+            </div>
 
-  <!-- ── Final CTA ──────────────────────────────────────────────── -->
-  <section class="section">
-    <div class="container">
-      <div class="cta-box">
-        <div class="cta-glow"></div>
-        <div style="position:relative">
-          <div style="display:flex;justify-content:center;margin-bottom:16px">
-            <svg width="52" height="52" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs><linearGradient id="g3" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="hsl(145,75%,62%)"/><stop offset="100%" stop-color="hsl(145,75%,50%)"/></linearGradient></defs>
-              <rect x="0" y="0" width="44" height="44" rx="11" fill="url(#g3)"/>
-              <rect x="1" y="1" width="42" height="42" rx="10" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
-              <path d="M10 9 L10 35" stroke="white" stroke-width="5.5" stroke-linecap="round"/>
-              <path d="M10 9.5 L14 9.5 Q26 9.5 26 18 Q26 26.5 14 26.5 L10 26.5" stroke="white" stroke-width="5.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="18" cy="18" r="4.5" fill="none" stroke="hsl(145,75%,35%)" stroke-width="1.8"/>
-              <line x1="18" y1="13.5" x2="18" y2="22.5" stroke="hsl(145,75%,35%)" stroke-width="1.2" stroke-linecap="round"/>
-              <line x1="13.5" y1="18" x2="22.5" y2="18" stroke="hsl(145,75%,35%)" stroke-width="1.2" stroke-linecap="round"/>
-              <g stroke-linecap="round" stroke-linejoin="round"><polyline points="30,13 36,18 30,23" stroke="white" stroke-width="2.8" fill="none" opacity="0.9"/><polyline points="29,20 34,24 29,28" stroke="white" stroke-width="2.2" fill="none" opacity="0.55"/><polyline points="28,26 32,29 28,32" stroke="white" stroke-width="1.6" fill="none" opacity="0.28"/></g>
-            </svg>
-          </div>
-          <p class="cta-title">Pronto para evoluir?</p>
-          <p class="cta-sub">Junte-se aos atletas que treinam com inteligência graças ao sistema baseado em ciência da PerformaFC.</p>
-          <a href="https://app.performafc.com/register" class="btn-primary-lg" style="max-width:280px;margin:0 auto">Começar Grátis Hoje</a>
-          <p class="cta-note">14 dias · Acesso completo · Sem cartão</p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-dark-800 border border-gray-800 rounded-3xl p-8 card-hover transition duration-300">
+                    <div class="w-14 h-14 bg-brand-500/10 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">Check-in de Prontidão (8 Pontos)</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Avalia sono, fadiga, stress hídrico e dor muscular em 30 segundos. O sistema recalcula automaticamente a tua zona de carga (Day Color) antes do treino.</p>
+                </div>
+                <div class="bg-dark-800 border border-gray-800 rounded-3xl p-8 card-hover transition duration-300">
+                    <div class="w-14 h-14 bg-brand-500/10 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">Motor Adaptativo U12-U18</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Geramos microciclos semanais (Verde, Amarelo, Vermelho) alinhados à tua faixa etária, posição e aos teus dias de jogos pelo clube.</p>
+                </div>
+                <div class="bg-dark-800 border border-gray-800 rounded-3xl p-8 card-hover transition duration-300">
+                    <div class="w-14 h-14 bg-brand-500/10 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">Painel para Pais e Scouts</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Os responsáveis acompanham a curva de evolução (Consistência & ACWR) sem invadir a IA. Permite exportação gerada em PDF profundo para testes (Tryouts).</p>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ── Footer ──────────────────────────────────────────────────── -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-top">
-        <a href="/" class="logo-full" style="text-decoration:none">
-          <svg width="28" height="28" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs><linearGradient id="g4" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="hsl(145,75%,62%)"/><stop offset="100%" stop-color="hsl(145,75%,50%)"/></linearGradient></defs>
-            <rect x="0" y="0" width="44" height="44" rx="11" fill="url(#g4)"/>
-            <path d="M10 9 L10 35" stroke="white" stroke-width="5.5" stroke-linecap="round"/>
-            <path d="M10 9.5 L14 9.5 Q26 9.5 26 18 Q26 26.5 14 26.5 L10 26.5" stroke="white" stroke-width="5.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            <g stroke-linecap="round" stroke-linejoin="round"><polyline points="30,13 36,18 30,23" stroke="white" stroke-width="2.8" fill="none" opacity="0.9"/></g>
-          </svg>
-          <div class="logo-text" style="margin-left:8px">
-            <span class="logo-performa" style="font-size:13px">PERFORMA</span>
-            <span class="logo-fc" style="font-size:9px">FC</span>
-          </div>
-        </a>
-        <div class="footer-links">
-          <a href="https://app.performafc.com/login" class="footer-link">Entrar</a>
-          <a href="https://app.performafc.com/register" class="footer-link">Registar</a>
+    <!-- Deep AI Engine Section -->
+    <section id="motor" class="py-24 bg-dark-800 relative border-y border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-16">
+            <div class="lg:w-1/2">
+                <h2 class="text-brand-500 font-bold tracking-widest uppercase text-sm mb-3">Inteligência Restrita</h2>
+                <h3 class="text-3xl md:text-5xl font-black text-white mb-6">Coach IA focado em Futebol 100% Real.</h3>
+                <p class="text-gray-400 text-lg mb-6">Integramos um LLM blindado e desenhado apenas para *Soccer Development*. Podes fazer até 10 perguntas táticas ou técnicas por sessão ao nosso AI Assistant.</p>
+                
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-4">
+                        <div class="mt-1 bg-brand-500/20 p-1.5 rounded-full"><svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></div>
+                        <div>
+                            <span class="text-white font-bold block mb-1">Intenção Tática Clara</span>
+                            <span class="text-sm text-gray-400">Antes de começares o Drill, a IA explica o teu "Porquê" estrutural no campo e adapta o conselho à tua posição.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <div class="mt-1 bg-brand-500/20 p-1.5 rounded-full"><svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></div>
+                        <div>
+                            <span class="text-white font-bold block mb-1">Prevenção por Regras Duras</span>
+                            <span class="text-sm text-gray-400">Dor acima de 8 ou três treinos amarelos seguidos forçam o sistema de decisão a colocar o treino em Modo Vermelho (Recuperação).</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <div class="mt-1 bg-brand-500/20 p-1.5 rounded-full"><svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></div>
+                        <div>
+                            <span class="text-white font-bold block mb-1">Gamificação XP & Badges</span>
+                            <span class="text-sm text-gray-400">Acumulas *Streaks* por check-outs consistentes e recebes Badges especiais como "Tactical Genius" ou "Iron Man".</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="lg:w-1/2 w-full">
+                <!-- Mock UI -->
+                <div class="bg-dark-900 border border-gray-700 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-500/20 rounded-full blur-3xl"></div>
+                    <div class="flex items-center justify-between border-b border-gray-800 pb-4 mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 rounded-full bg-red-500/50 hidden sm:block"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500/50 hidden sm:block"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500/50 hidden sm:block"></div>
+                            <span class="text-xs font-semibold tracking-widest text-gray-500 uppercase ml-2">App / IA Context</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-dark-800/80 rounded-2xl p-4 border border-gray-800 mb-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-brand-400 font-bold text-sm">Prontidão Detetada: ZONA AMARELA</span>
+                            <span class="text-xs bg-yellow-500/20 text-yellow-500 px-2 py-1 rounded">RPE 7.5</span>
+                        </div>
+                        <p class="text-sm text-gray-300">Notámos um declínio na tua qualidade de sono. Como tens jogo pelo teu clube no Sábado (D-2), o Motor ajustou a sessão de "Potência Pura" para um Bloco de Recuperação Ativa.</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex justify-end">
+                            <div class="bg-brand-600 text-white rounded-2xl rounded-tr-sm px-4 py-2.5 text-sm max-w-[85%]">
+                                Coach, sinto as panturrilhas pesadas, devo forçar os Sprints C1?
+                            </div>
+                        </div>
+                        <div class="flex justify-start">
+                            <div class="bg-gray-800 border border-gray-700 text-gray-200 rounded-2xl rounded-tl-sm px-4 py-2.5 text-sm max-w-[85%]">
+                                <span class="font-bold text-brand-400 block mb-1">Coach IA</span>
+                                Não aconselho. Com carga acumulada, sprints de travagem e aceleração brutal (C1) aumentam drasticamente o risco de rutura miofascial. Foca apenas nos blocos D1 (Técnica Base) e R2 (Mobilidade).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="footer-bottom">
-        <p class="footer-copy">© 2026 PerformaFC · Todos os direitos reservados</p>
-        <p class="footer-copy">Youth Soccer Performance</p>
-      </div>
-    </div>
-  </footer>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="planos" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-brand-500 font-bold tracking-widest uppercase text-sm mb-3">Modelos de Subscrição</h2>
+                <h3 class="text-4xl font-black text-white mb-4">Focado no Atleta. <br/>Perfeito para Pais & Clubes.</h3>
+                <p class="text-gray-400">Cancelas apenas com um clique no interface. Tudo integrado via Stripe Seguro.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                
+                <!-- Trial -->
+                <div class="bg-dark-800 border border-gray-800 rounded-3xl p-8 flex flex-col transition duration-300 card-hover items-center pt-10">
+                    <h4 class="text-xl font-bold text-white mb-2">Kick-Off Trial</h4>
+                    <p class="text-gray-500 font-medium mb-6">14 Dias Test-Drive</p>
+                    <div class="text-5xl font-black text-white mb-6">0€</div>
+                    <ul class="space-y-3 mb-8 w-full">
+                        <li class="flex gap-3 text-sm text-gray-300"><svg class="w-5 h-5 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Check-in diário e RPE</li>
+                        <li class="flex gap-3 text-sm text-gray-300"><svg class="w-5 h-5 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Acesso aos Microciclos IA</li>
+                        <li class="flex gap-3 text-sm text-gray-300"><svg class="w-5 h-5 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>3 perguntas/dia ao Coach IA</li>
+                        <li class="flex gap-3 text-sm text-gray-300"><svg class="w-5 h-5 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Acompanhamento Básico Pais</li>
+                    </ul>
+                    <a href="https://app.beone.app/register" class="mt-auto w-full py-3.5 rounded-full border-2 border-gray-700 hover:border-brand-500 text-white font-bold text-center transition">O meu Test-Drive</a>
+                </div>
+
+                <!-- Pro -->
+                <div class="bg-brand-500/10 border-2 border-brand-500 rounded-3xl p-8 flex flex-col relative transform md:-translate-y-4 shadow-[0_0_40px_-15px_rgba(16,185,129,0.3)] items-center pt-10">
+                    <div class="absolute top-0 right-1/2 transform translate-x-1/2 -translate-y-1/2 bg-brand-500 text-white text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full backdrop-blur-md">PRO PERFORMANCE</div>
+                    <h4 class="text-xl font-bold text-brand-400 mb-2">Plano Pro</h4>
+                    <p class="text-gray-400 font-medium mb-6">Máximo Desenvolvimento</p>
+                    <div class="text-5xl font-black text-white mb-2 flex items-baseline">9.99€<span class="text-lg text-gray-500 font-medium tracking-normal ml-1">/mês</span></div>
+                    <p class="text-xs text-gray-500 line-through mb-4">era 14.99€</p>
+                    <ul class="space-y-3 mb-8 w-full">
+                        <li class="flex gap-3 text-sm text-white font-medium"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Tudo no Trial, Ilimitado</li>
+                        <li class="flex gap-3 text-sm text-white font-medium"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Análise de Carga ACWR Profunda</li>
+                        <li class="flex gap-3 text-sm text-white font-medium"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Coach IA Ilimitado (10 max/sessão)</li>
+                        <li class="flex gap-3 text-sm text-white font-medium"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Vídeo Feedback Pessoal</li>
+                        <li class="flex gap-3 text-sm text-white font-medium"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Exportação Dossier PDF Scout</li>
+                        <li class="flex gap-3 text-sm text-white font-medium"><svg class="w-5 h-5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>Milestones e Gamificação</li>
+                    </ul>
+                    <a href="https://app.beone.app/register" class="mt-auto w-full py-4 rounded-full bg-brand-500 hover:bg-brand-400 text-white font-black text-center transition shadow-lg shadow-brand-500/25">Iniciar Treino Pro</a>
+                </div>
+
+                <!-- Club -->
+                <div class="bg-dark-800 border border-gray-800 rounded-3xl p-8 flex flex-col transition duration-300 card-hover items-center pt-10">
+                    <h4 class="text-xl font-bold text-white mb-2">Club & Family</h4>
+                    <p class="text-gray-500 font-medium mb-6">Equipas Pequenas e Grupos</p>
+                    <div class="text-4xl font-black text-white mb-2 flex items-baseline">99€<span class="text-lg text-gray-500 font-medium tracking-normal ml-1">/mês</span></div>
+                    <p class="text-xs text-gray-500 mb-6">Pack inicial de 10 atletas</p>
+                    <ul class="space-y-3 mb-8 w-full">
+                        <li class="flex gap-3 text-sm text-gray-300"><svg class="w-5 h-5 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Todos os Atletas no Plano Pro</li>
+                        <li class="flex gap-3 text-sm text-gray-300"><svg class="w-5 h-5 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Acesso Treinador B2B "Team View"</li>
+                        <li class="flex gap-3 text-sm text-gray-300"><svg class="w-5 h-5 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Resumo Agregado de Lesões</li>
+                        <li class="flex gap-3 text-sm text-gray-300"><svg class="w-5 h-5 text-gray-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Upload e Review Tático</li>
+                    </ul>
+                    <a href="mailto:contact@beone.app" class="mt-auto w-full py-3.5 rounded-full bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white font-bold text-center transition">Falar com Consultores</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="py-24">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-r from-brand-600 to-brand-400 rounded-3xl p-10 md:p-16 text-center shadow-2xl relative overflow-hidden">
+                <div class="absolute inset-0 bg-dark-900/10"></div>
+                <h2 class="text-3xl md:text-5xl font-black text-white mb-6 relative z-10 tracking-tight">O Fim dos Treinos Genéricos.</h2>
+                <p class="text-brand-100 text-lg md:text-xl max-w-2xl mx-auto mb-10 relative z-10 font-medium">As academias e tryouts exigem consistência, carga balisada e recuperação profissional. Não dês hipóteses ao acaso.</p>
+                <a href="https://app.beone.app/register" class="relative z-10 inline-flex px-10 py-5 bg-dark-900 hover:bg-black text-white rounded-full font-black text-lg transition-transform transform hover:scale-105 shadow-xl items-center gap-3">
+                    Registar o meu Perfil Grátis
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-900 border-t border-gray-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2 opacity-60">
+                <svg width="24" height="24" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="44" height="44" rx="12" fill="#34d399"/>
+                    <path d="M12 12 L12 32" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M12 12 H18 Q26 12 26 18 Q26 24 18 24 H12" stroke="white" stroke-width="4" fill="none" stroke-linecap="round"/>
+                </svg>
+                <span class="text-white font-black text-sm tracking-tight">PERFORMA<span class="text-brand-500">FC</span></span>
+            </div>
+            
+            <div class="flex space-x-6 text-sm text-gray-500 font-medium">
+                <a href="https://app.beone.app/login" class="hover:text-brand-400 transition">Log In App</a>
+                <a href="#" class="hover:text-brand-400 transition">Termos & LGPD</a>
+                <a href="#" class="hover:text-brand-400 transition">Privacidade COPPA</a>
+            </div>
+            
+            <p class="text-xs text-gray-600 font-medium">© 2026 PerformaFC. Youth Soccer Engine.</p>
+        </div>
+    </footer>
 
 </body>
 </html>
